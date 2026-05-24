@@ -1,0 +1,13 @@
+{
+  "id": "dividend-aristocrat",
+  "name": "IDX Dividend Aristocrat",
+  "description": "Long uninterrupted dividend record at attractive yield with safe payout coverage.",
+  "rules": [
+    {"name": "streak-10y",      "expr": "div_streak_annual >= 10",                "weight": 2.0},
+    {"name": "yield-attractive","expr": "div_yield >= 4",                         "weight": 1.5},
+    {"name": "yield-vs-5y",     "expr": "avg_div_yield_5y is None or div_yield >= avg_div_yield_5y", "weight": 1.0},
+    {"name": "payout-sustainable","expr": "payout_ratio is None or payout_ratio <= 70", "weight": 1.0},
+    {"name": "fcf-covers-div",  "expr": "fcf_ttm > div_ttm * current_share_outstanding", "weight": 1.0, "veto": true},
+    {"name": "no-leverage-flag","expr": "der < 1.5",                              "weight": 0.5}
+  ]
+}

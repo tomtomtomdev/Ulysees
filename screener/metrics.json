@@ -1,0 +1,305 @@
+{
+  "_meta": {
+    "source": "Stockbit 'Add Financial Metric' screens (IMG_6463..IMG_6517)",
+    "exchange": "IDX",
+    "notes": "Catalog of every metric Stockbit's formula screener exposes, grouped by category. Each entry has a stable key (snake_case) and the human label as shown in the UI. Use the keys when writing screener formulas."
+  },
+
+  "size_identity": [
+    {"key": "market_cap",                "label": "Market Cap",                          "unit": "IDR"},
+    {"key": "enterprise_value",          "label": "Enterprise Value",                    "unit": "IDR"},
+    {"key": "current_share_outstanding", "label": "Current Share Outstanding",           "unit": "shares"},
+    {"key": "free_float",                "label": "Free Float",                          "unit": "pct"},
+    {"key": "free_float_market_cap",     "label": "Free Float Market Cap",               "unit": "IDR"},
+    {"key": "num_shareholders",          "label": "Number of Shareholders",              "unit": "count"},
+    {"key": "num_shareholders_chg_1m",   "label": "Number of Shareholders (# changes 1M)","unit": "count"},
+    {"key": "num_shareholders_chg_3m",   "label": "Number of Shareholders (# changes 3M)","unit": "count"},
+    {"key": "num_shareholders_chg_6m",   "label": "Number of Shareholders (# changes 6M)","unit": "count"},
+    {"key": "num_shareholders_chg_1y",   "label": "Number of Shareholders (# changes 1Y)","unit": "count"},
+    {"key": "num_shareholders_pct_1m",   "label": "Number of Shareholders (% changes 1M)","unit": "pct"},
+    {"key": "num_shareholders_pct_3m",   "label": "Number of Shareholders (% changes 3M)","unit": "pct"},
+    {"key": "num_shareholders_pct_6m",   "label": "Number of Shareholders (% of changes 6M)","unit": "pct"},
+    {"key": "num_shareholders_pct_1y",   "label": "Number of Shareholders (% of changes 1Y)","unit": "pct"}
+  ],
+
+  "price": [
+    {"key": "price",            "label": "Price",                  "unit": "IDR"},
+    {"key": "price_unadjusted", "label": "Price (Unadjusted)",     "unit": "IDR"},
+    {"key": "previous_price",   "label": "Previous Price",         "unit": "IDR"},
+    {"key": "open_price",       "label": "Open Price",             "unit": "IDR"},
+    {"key": "low_price",        "label": "Low Price",              "unit": "IDR"},
+    {"key": "high_price",       "label": "High Price",             "unit": "IDR"},
+    {"key": "high_52w",         "label": "52 Week High",           "unit": "IDR"},
+    {"key": "low_52w",          "label": "52 Week Low",            "unit": "IDR"},
+    {"key": "price_change",     "label": "Price Change",           "unit": "IDR"},
+    {"key": "ret_1d_pct",       "label": "1 Day Price Returns (%)","unit": "pct"},
+    {"key": "ret_1w_pct",       "label": "1 Week Price Returns",   "unit": "pct"},
+    {"key": "ret_1m_pct",       "label": "1 Month Price Returns",  "unit": "pct"},
+    {"key": "ret_3m_pct",       "label": "3 Month Price Returns",  "unit": "pct"},
+    {"key": "ret_6m_pct",       "label": "6 Month Price Returns",  "unit": "pct"},
+    {"key": "ret_1y_pct",       "label": "1 Year Price Returns",   "unit": "pct"},
+    {"key": "ret_3y_pct",       "label": "3 Year Price Returns",   "unit": "pct"},
+    {"key": "ret_5y_pct",       "label": "5 Year Price Returns",   "unit": "pct"},
+    {"key": "ret_10y_pct",      "label": "10 Year Price Returns",  "unit": "pct"},
+    {"key": "ret_ytd_pct",      "label": "Year to Date Price Returns","unit": "pct"},
+    {"key": "cagr_3y_pct",      "label": "3 Year CAGR Price Performance","unit": "pct"},
+    {"key": "cagr_5y_pct",      "label": "5 Year CAGR Price Performance","unit": "pct"},
+    {"key": "cagr_10y_pct",     "label": "10 Year CAGR Price Performance","unit": "pct"}
+  ],
+
+  "valuation": [
+    {"key": "pe_ttm",                "label": "Current PE Ratio (TTM)",         "unit": "x"},
+    {"key": "pe_annualised",         "label": "Current PE Ratio (Annualised)",  "unit": "x"},
+    {"key": "earnings_yield_ttm",    "label": "Earnings Yield (TTM)",           "unit": "pct"},
+    {"key": "pbv",                   "label": "Current Price to Book Value",    "unit": "x"},
+    {"key": "p_tang_bv_quarter",     "label": "Price to Tang. Book Value (Quarter)","unit": "x"},
+    {"key": "ps_ttm",                "label": "Current Price to Sales (TTM)",   "unit": "x"},
+    {"key": "ev_ebit_ttm",           "label": "EV to EBIT (TTM)",               "unit": "x"},
+    {"key": "ev_ebitda_quarter",     "label": "EV to EBITDA (Quarter)",         "unit": "x"},
+    {"key": "ev_ebitda_annual",      "label": "EV to EBITDA (Annual)",          "unit": "x"},
+    {"key": "ev_ebitda_ttm",         "label": "EV to EBITDA (TTM)",             "unit": "x"},
+    {"key": "ev_ebitda_ytd",         "label": "EV to EBITDA (YTD)",             "unit": "x"},
+    {"key": "p_fcf_ttm",             "label": "Current Price To Free Cashflow (TTM)","unit": "x"},
+    {"key": "p_cf_ttm",              "label": "Current Price To Cashflow (TTM)","unit": "x"},
+    {"key": "fwd_pe",                "label": "Forward PE Ratio",               "unit": "x"},
+    {"key": "peg",                   "label": "PEG Ratio",                      "unit": "x"},
+    {"key": "peg_3y",                "label": "PEG Ratio (3yr)",                "unit": "x"},
+    {"key": "peg_forward",           "label": "PEG (Forward)",                  "unit": "x"},
+    {"key": "graham_multiplier",     "label": "Graham Multiplier",              "unit": "x"},
+    {"key": "magic_formula_pct",     "label": "Magic Formula (%)",              "unit": "pct"},
+    {"key": "p_ncav",                "label": "P/NCAV",                         "unit": "x"},
+    {"key": "p_nnwc",                "label": "P/NNWC",                         "unit": "x"},
+    {"key": "current_bv_per_share",  "label": "Current Book Value Per Share",   "unit": "IDR"},
+    {"key": "ihsg_pe_ttm_median",    "label": "IHSG PE Ratio TTM (Median)",     "unit": "x"},
+    {"key": "piotroski_f",           "label": "Piotroski F-Score",              "unit": "0-9"},
+    {"key": "eps_rating",            "label": "EPS Rating",                     "unit": "0-100"},
+    {"key": "rs_rating",             "label": "Relative Strength Rating",       "unit": "0-100"},
+    {"key": "eps_ttm_yoy_growth",    "label": "EPS (TTM YoY Growth)",           "unit": "pct"}
+  ],
+
+  "valuation_bands_pe": {
+    "_doc": "PE/PBV/PS/Forward-PE standard-deviation bands available for 1Y, 3Y, 5Y, 10Y windows. Convention: <ratio>_<sigma>_<window>",
+    "ratios":  ["pe", "pbv", "ps", "fwd_pe"],
+    "sigmas":  ["plus2", "plus1", "mean", "minus1", "minus2"],
+    "windows": ["1y", "3y", "5y", "10y"],
+    "extras":  ["highest_pe_band", "higher_pe_band", "average_pe_band", "lower_pe_band", "lowest_pe_band"]
+  },
+
+  "dividend": [
+    {"key": "div_yield",              "label": "Dividend Yield",                  "unit": "pct"},
+    {"key": "div_yield_fy",           "label": "Dividend Yield FY",               "unit": "pct"},
+    {"key": "payout_ratio",           "label": "Payout Ratio",                    "unit": "pct"},
+    {"key": "payout_ratio_fy",        "label": "Dividend Payout Ratio FY",        "unit": "pct"},
+    {"key": "div_ttm",                "label": "Dividend (TTM)",                  "unit": "IDR"},
+    {"key": "div_fy",                 "label": "Dividend FY",                     "unit": "IDR"},
+    {"key": "avg_div_yield_3y",       "label": "Average Dividend Yield (3 Year)", "unit": "pct"},
+    {"key": "avg_div_yield_5y",       "label": "Average Dividend Yield (5 Year)", "unit": "pct"},
+    {"key": "avg_div_yield_10y",      "label": "Average Dividend Yield (10 Year)","unit": "pct"},
+    {"key": "div_streak_annual",      "label": "Dividend Payment Streak (Annual)","unit": "years"}
+  ],
+
+  "margins": [
+    {"key": "gpm_quarter", "label": "Gross Profit Margin (Quarter)",    "unit": "pct"},
+    {"key": "gpm_ttm",     "label": "Gross Profit Margin (TTM)(%)",     "unit": "pct"},
+    {"key": "gpm_annual",  "label": "Gross Profit Margin (Annual)(%)",  "unit": "pct"},
+    {"key": "opm_quarter", "label": "Operating Profit Margin (Quarter)","unit": "pct"},
+    {"key": "opm_ttm",     "label": "Operating Profit Margin (TTM)(%)", "unit": "pct"},
+    {"key": "opm_annual",  "label": "Operating Profit Margin (Annual)(%)","unit": "pct"},
+    {"key": "npm_quarter", "label": "Net Profit Margin (Quarter)",      "unit": "pct"},
+    {"key": "npm_ttm",     "label": "Net Profit Margin (TTM)(%)",       "unit": "pct"},
+    {"key": "npm_annual",  "label": "Net Profit Margin (Annual)(%)",    "unit": "pct"},
+    {"key": "npm_avg_5y",  "label": "Average (Net Profit Margin 5yr)",  "unit": "pct"}
+  ],
+
+  "returns": [
+    {"key": "asset_turnover_ttm",   "label": "Asset Turnover (TTM)",            "unit": "x"},
+    {"key": "roa_ttm",              "label": "Return on Assets (TTM)",          "unit": "pct"},
+    {"key": "roe_ttm",              "label": "Return on Equity (TTM)",          "unit": "pct"},
+    {"key": "roce_ttm",             "label": "Return on Capital Employed (TTM)","unit": "pct"},
+    {"key": "roic_ttm",             "label": "Return On Invested Capital (TTM)","unit": "pct"},
+    {"key": "avg_roe_3y",           "label": "Average (RoE 3 yr)",              "unit": "pct"},
+    {"key": "avg_roe_5y",           "label": "Average (RoE 5 yr)",              "unit": "pct"},
+    {"key": "avg_roce_3y",          "label": "Average (RoCE 3yr)",              "unit": "pct"},
+    {"key": "avg_roce_5y",          "label": "Average (RoCE 5yr)",              "unit": "pct"},
+    {"key": "roc_greenblatt",       "label": "ROC Greenblatt",                  "unit": "pct"}
+  ],
+
+  "efficiency": [
+    {"key": "receivables_turnover_q",   "label": "Receivables Turnover (Quarter)","unit": "x"},
+    {"key": "receivables_turnover_ttm", "label": "Receivables Turnover (TTM)",    "unit": "x"},
+    {"key": "inventory_turnover_q",     "label": "Inventory Turnover (Quarter)",  "unit": "x"},
+    {"key": "inventory_turnover_ttm",   "label": "Inventory Turnover (TTM)",      "unit": "x"},
+    {"key": "fixed_assets_turnover_q",  "label": "Fixed Assets Turnover (Quarter)","unit": "x"},
+    {"key": "fixed_assets_turnover_ttm","label": "Fixed Assets Turnover (TTM)",   "unit": "x"},
+    {"key": "wc_turnover_q",            "label": "Working Capital Turnover (Quarter)","unit": "x"},
+    {"key": "wc_turnover_ttm",          "label": "Working Capital Turnover (TTM)","unit": "x"},
+    {"key": "dso_annual",               "label": "Days Sales Outstanding (Annual)","unit": "days"},
+    {"key": "dso_quarter",              "label": "Days Sales Outstanding (Quarter)","unit": "days"},
+    {"key": "dio_quarter",              "label": "Days Inventory (Quarter)",      "unit": "days"},
+    {"key": "dio_annual",               "label": "Days Inventory (Annual)",       "unit": "days"},
+    {"key": "payables_period_annual",   "label": "Payables Period (Annual)",      "unit": "days"},
+    {"key": "dpo_quarter",              "label": "Days Payables Outstanding (Quarter)","unit": "days"},
+    {"key": "ccc_annual",               "label": "Cash Conversion Cycle (Annual)","unit": "days"},
+    {"key": "ccc_quarter",              "label": "Cash Conversion Cycle (Quarter)","unit": "days"}
+  ],
+
+  "solvency": [
+    {"key": "altman_z_modified",  "label": "Altman Z-Score (Modified)",     "unit": "z"},
+    {"key": "current_ratio",      "label": "Current Ratio (Quarter)",       "unit": "x"},
+    {"key": "quick_ratio",        "label": "Quick Ratio (Quarter)",         "unit": "x"},
+    {"key": "der",                "label": "Debt to Equity Ratio (Quarter)","unit": "x"},
+    {"key": "lt_der",             "label": "LT Debt/Equity (Quarter)",      "unit": "x"},
+    {"key": "total_liab_equity",  "label": "Total Liabilities/Equity (Quarter)","unit": "x"},
+    {"key": "debt_to_assets",     "label": "Total Debt/Total Assets (Quarter)","unit": "x"},
+    {"key": "financial_leverage", "label": "Financial Leverage (Quarter)",  "unit": "x"},
+    {"key": "interest_coverage",  "label": "Interest Coverage (TTM)",       "unit": "x"},
+    {"key": "net_debt_equity",    "label": "Net Debt/Total Equity (Quarter)","unit": "x"}
+  ],
+
+  "income_statement": {
+    "_doc": "Each line item has Quarter / Annual / TTM / YTD + Growth QoQ / Growth Quarterly YoY / Growth YTD YoY / Growth Annual YoY / Growth 3 Year suffixes",
+    "_suffixes": ["q", "annual", "ttm", "ytd", "growth_qoq", "growth_qyy", "growth_ytdyy", "growth_annual_yoy", "growth_3y"],
+    "items": [
+      "revenue", "cogs", "gross_profit", "ebitda",
+      "operating_expense", "income_from_operations", "non_operating_income",
+      "finance_cost", "fx_gain_loss", "share_of_associates",
+      "income_before_tax", "tax_expense", "net_income"
+    ],
+    "streaks": [
+      {"key": "sales_growth_streak",          "label": "Sales Growth Streak",          "unit": "years"},
+      {"key": "net_income_growth_streak",     "label": "Net Income Growth Streak",     "unit": "years"},
+      {"key": "net_income_growth_streak_ann", "label": "Net Income Growth Streak (Annual)","unit": "years"},
+      {"key": "eps_growth_streak",            "label": "EPS Growth Streak",            "unit": "years"},
+      {"key": "eps_growth_streak_annual",     "label": "EPS Growth Streak (Annual)",   "unit": "years"}
+    ]
+  },
+
+  "eps": [
+    {"key": "eps_q",               "label": "EPS (Quarter)",          "unit": "IDR"},
+    {"key": "eps_annual",          "label": "EPS (Annual)",           "unit": "IDR"},
+    {"key": "eps_ttm",             "label": "EPS (TTM)",              "unit": "IDR"},
+    {"key": "eps_ttm_current",     "label": "Current EPS (TTM)",      "unit": "IDR"},
+    {"key": "eps_ytd",             "label": "EPS (YTD)",              "unit": "IDR"},
+    {"key": "eps_qoq_growth",      "label": "EPS (QoQ Growth)",       "unit": "pct"},
+    {"key": "eps_q_yoy_growth",    "label": "EPS (Quarter YoY Growth)","unit": "pct"},
+    {"key": "eps_ytd_yoy_growth",  "label": "EPS (YTD YoY Growth)",   "unit": "pct"},
+    {"key": "eps_annual_yoy_growth","label": "EPS (Annual YoY Growth)","unit": "pct"},
+    {"key": "eps_3y_cagr",         "label": "EPS (3 Year CAGR)",      "unit": "pct"},
+    {"key": "eps_forward_growth",  "label": "EPS Forward Growth",     "unit": "pct"}
+  ],
+
+  "balance_sheet_assets": [
+    "cash_and_equivalents", "trade_receivables", "other_receivables", "inventories",
+    "short_term_investments", "retention_receivables", "gross_receivables_project",
+    "joint_venture_receivables", "total_current_assets", "ppe", "plantations",
+    "land_for_development", "investment_properties", "real_estate_assets",
+    "deferred_exploration_costs", "exploration_eval_assets", "mining_properties",
+    "deferred_stripping_cost", "oil_gas_assets", "investment_in_associates",
+    "goodwill", "intangible_assets", "loans", "total_non_current_assets", "total_assets"
+  ],
+
+  "balance_sheet_liab_equity": [
+    "trade_payables", "other_payables", "accrued_expenses", "taxes_payable",
+    "short_term_debt_q", "total_current_liabilities", "long_term_debt_q",
+    "deposits_from_customers", "insurance_contract_liabilities",
+    "total_non_current_liabilities", "total_liabilities", "book_value_q",
+    "tangible_book_value", "working_capital_q", "net_debt_q", "total_debt_q",
+    "cash_per_share_q", "common_equity", "total_equity_q"
+  ],
+
+  "cash_flow": [
+    {"key": "ocf_q",         "label": "Operating Cash Flow (Quarter)",   "unit": "IDR"},
+    {"key": "cfo_ttm",       "label": "Cash From Operations (TTM)",      "unit": "IDR"},
+    {"key": "cff_ttm",       "label": "Cash From Financing (TTM)",       "unit": "IDR"},
+    {"key": "cfi_ttm",       "label": "Cash From Investing (TTM)",       "unit": "IDR"},
+    {"key": "capex_ttm",     "label": "Capital Expenditure (TTM)",       "unit": "IDR"},
+    {"key": "fcf_ttm",       "label": "Free Cash Flow (TTM)",            "unit": "IDR"},
+    {"key": "fcf_q",         "label": "Free Cash Flow (Quarter)",        "unit": "IDR"}
+  ],
+
+  "technical_indicators": [
+    {"key": "rsi_14",      "label": "RSI (14)",              "unit": "0-100"},
+    {"key": "macd_12_26",  "label": "MACD (12,26)",          "unit": "raw"},
+    {"key": "stoch_14_1_3","label": "Stochastic (14,1,3)",   "unit": "0-100"},
+    {"key": "bb_upper_20", "label": "Bollinger Band Upper (20)","unit": "IDR"},
+    {"key": "bb_lower_20", "label": "Bollinger Band Lower (20)","unit": "IDR"},
+    {"key": "price_ma_5",  "label": "Price MA 5",            "unit": "IDR"},
+    {"key": "price_ma_10", "label": "Price MA 10",           "unit": "IDR"},
+    {"key": "price_ma_20", "label": "Price MA 20",           "unit": "IDR"},
+    {"key": "price_ma_50", "label": "Price MA 50",           "unit": "IDR"},
+    {"key": "price_ma_100","label": "Price MA 100",          "unit": "IDR"},
+    {"key": "price_ma_200","label": "Price MA 200",          "unit": "IDR"}
+  ],
+
+  "volume_value": [
+    {"key": "volume",            "label": "Volume",                "unit": "shares"},
+    {"key": "previous_volume",   "label": "Previous Volume",       "unit": "shares"},
+    {"key": "value",             "label": "Value",                 "unit": "IDR"},
+    {"key": "frequency",         "label": "Frequency",             "unit": "count"},
+    {"key": "freq_analyzer",     "label": "Frequency Analyzer",    "unit": "ratio"},
+    {"key": "freq_analyzer_ma50","label": "Frequency Analyzer MA 50","unit": "ratio"},
+    {"key": "freq_spike",        "label": "Frequency Spike",       "unit": "bool"},
+    {"key": "vol_change_1d",     "label": "1 Day Volume Change",   "unit": "pct"},
+    {"key": "volume_ma_5",       "label": "Volume MA 5",           "unit": "shares"},
+    {"key": "volume_ma_10",      "label": "Volume MA 10",          "unit": "shares"},
+    {"key": "volume_ma_20",      "label": "Volume MA 20",          "unit": "shares"},
+    {"key": "volume_ma_50",      "label": "Volume MA 50",          "unit": "shares"},
+    {"key": "volume_ma_100",     "label": "Volume MA 100",         "unit": "shares"},
+    {"key": "volume_ma_200",     "label": "Volume MA 200",         "unit": "shares"},
+    {"key": "value_ma_5",        "label": "Value MA 5",            "unit": "IDR"},
+    {"key": "value_ma_10",       "label": "Value MA 10",           "unit": "IDR"},
+    {"key": "value_ma_20",       "label": "Value MA 20",           "unit": "IDR"},
+    {"key": "value_ma_50",       "label": "Value MA 50",           "unit": "IDR"},
+    {"key": "value_ma_100",      "label": "Value MA 100",          "unit": "IDR"},
+    {"key": "value_ma_200",      "label": "Value MA 200",          "unit": "IDR"}
+  ],
+
+  "foreign_flow": [
+    {"key": "foreign_flow",          "label": "Foreign Flow",            "unit": "IDR"},
+    {"key": "foreign_flow_ma20",     "label": "Foreign Flow MA 20",      "unit": "IDR"},
+    {"key": "foreign_flow_ma50",     "label": "Foreign Flow MA 50",      "unit": "IDR"},
+    {"key": "net_foreign_bs",        "label": "Net Foreign Buy / Sell",  "unit": "IDR"},
+    {"key": "net_foreign_bs_ma10",   "label": "Net Foreign Buy / Sell MA10","unit": "IDR"},
+    {"key": "net_foreign_bs_ma20",   "label": "Net Foreign Buy / Sell MA20","unit": "IDR"},
+    {"key": "net_foreign_buy_streak","label": "Net Foreign Buy Streak",  "unit": "days"},
+    {"key": "net_foreign_sell_streak","label": "Net Foreign Sell Streak","unit": "days"},
+    {"key": "nf_flow_1w",            "label": "1 Week Net Foreign Flow", "unit": "IDR"},
+    {"key": "nf_flow_1m",            "label": "1 Month Net Foreign Flow","unit": "IDR"},
+    {"key": "nf_flow_3m",            "label": "3 Month Net Foreign Flow","unit": "IDR"},
+    {"key": "nf_flow_6m",            "label": "6 Month Net Foreign Flow","unit": "IDR"},
+    {"key": "nf_flow_1y",            "label": "1 Year Net Foreign Flow", "unit": "IDR"},
+    {"key": "nf_flow_ytd",           "label": "YTD Net Foreign Flow",    "unit": "IDR"}
+  ],
+
+  "bandar": [
+    {"key": "bandar_value",         "label": "Bandar Value",         "unit": "IDR"},
+    {"key": "bandar_accum_dist",    "label": "Bandar Accum/Dist",    "unit": "signed"},
+    {"key": "bandar_value_ma10",    "label": "Bandar Value MA 10",   "unit": "IDR"},
+    {"key": "bandar_value_ma20",    "label": "Bandar Value MA 20",   "unit": "IDR"},
+    {"key": "previous_bandar_value","label": "Previous Bandar Value","unit": "IDR"}
+  ],
+
+  "insider": [
+    {"key": "net_insider_3m_pct", "label": "Net Insider Buy / Sell (3M) (%)", "unit": "pct"},
+    {"key": "net_insider_6m_pct", "label": "Net Insider Buy / Sell (6M) (%)", "unit": "pct"},
+    {"key": "net_insider_1y_pct", "label": "Net Insider Buy / Sell (1Y) (%)", "unit": "pct"},
+    {"key": "net_insider_ytd_pct","label": "Net Insider Buy / Sell (YTD) (%)","unit": "pct"}
+  ],
+
+  "rs_lines": [
+    {"key": "rs_line_1m",  "label": "1 Month RS Line",  "unit": "raw"},
+    {"key": "rs_line_3m",  "label": "3 Month RS Line",  "unit": "raw"},
+    {"key": "rs_line_6m",  "label": "6 Month RS Line",  "unit": "raw"},
+    {"key": "rs_line_9m",  "label": "9 Month RS Line",  "unit": "raw"},
+    {"key": "rs_line_1y",  "label": "1 Year RS Line",   "unit": "raw"}
+  ],
+
+  "ranks": [
+    "rank_rs_3m", "rank_rs_6m", "rank_rs_9m", "rank_rs_1y",
+    "rank_6m_price_return", "rank_operating_profit_growth",
+    "rank_ps", "rank_pb", "rank_market_cap", "rank_earnings_yield",
+    "rank_magic_formula", "rank_roa", "rank_roe", "rank_roic",
+    "rank_roc_greenblatt", "rank_pe_ttm", "rank_pe_annualised",
+    "rank_ma100"
+  ]
+}

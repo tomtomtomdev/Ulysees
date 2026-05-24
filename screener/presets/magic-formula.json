@@ -1,0 +1,12 @@
+{
+  "id": "magic-formula",
+  "name": "Greenblatt — Magic Formula",
+  "description": "Cheap + high return on capital. Uses Stockbit's pre-computed Magic Formula rank.",
+  "rules": [
+    {"name": "top-decile-magic",   "expr": "rank_magic_formula is not None and rank_magic_formula <= 0.10", "weight": 2.0, "note": "Top 10% combined rank"},
+    {"name": "high-earnings-yield","expr": "earnings_yield_ttm >= 10",                                      "weight": 1.0},
+    {"name": "high-roc",           "expr": "roc_greenblatt >= 20",                                          "weight": 1.0},
+    {"name": "positive-fcf",       "expr": "fcf_ttm > 0",                                                   "weight": 1.0, "veto": true},
+    {"name": "size-floor",         "expr": "market_cap >= 1e12",                                            "weight": 0.5}
+  ]
+}

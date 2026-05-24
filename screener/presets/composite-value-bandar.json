@@ -1,0 +1,15 @@
+{
+  "id": "composite-value-bandar",
+  "name": "Composite — Value + Bandar Flow",
+  "description": "The signature IDX combo: fundamentally OK, undervalued vs. peers, plus active smart-money accumulation.",
+  "rules": [
+    {"name": "earnings-yield",     "expr": "earnings_yield_ttm >= 8",       "weight": 1.0},
+    {"name": "pbv-below-2",        "expr": "pbv > 0 and pbv <= 2",          "weight": 1.0},
+    {"name": "roe-decent",         "expr": "roe_ttm >= 12",                 "weight": 1.0},
+    {"name": "der-safe",           "expr": "der < 1.5",                     "weight": 1.0},
+    {"name": "bandar-accumulating","expr": "bandar_value > bandar_value_ma20", "weight": 1.5},
+    {"name": "foreign-1m-positive","expr": "nf_flow_1m > 0",                "weight": 1.0},
+    {"name": "trend-up",           "expr": "price >= price_ma_50",          "weight": 1.0},
+    {"name": "liquid",             "expr": "value_ma_20 >= 5e9",            "weight": 0.5, "veto": true}
+  ]
+}

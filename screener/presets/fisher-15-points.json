@@ -1,0 +1,14 @@
+{
+  "id": "fisher-15-points",
+  "name": "Fisher — Common Stocks Uncommon Profits (Quant Proxy)",
+  "description": "Quantitative proxies for Fisher's 15 points: growth runway, margin trend, sales growth, operational efficiency.",
+  "rules": [
+    {"name": "sales-growth",         "expr": "rank_operating_profit_growth is not None and rank_operating_profit_growth <= 0.25", "weight": 1.5},
+    {"name": "margin-improving",     "expr": "opm_ttm >= opm_annual",     "weight": 1.0, "note": "TTM ≥ last full year"},
+    {"name": "high-roic",            "expr": "roic_ttm >= 15",            "weight": 1.5},
+    {"name": "fcf-strong",           "expr": "fcf_ttm / max(revenue_ttm, 1) >= 0.10", "weight": 1.0},
+    {"name": "ccc-tight",            "expr": "ccc_quarter is None or ccc_quarter <= 90", "weight": 0.5},
+    {"name": "insider-aligned",      "expr": "net_insider_1y_pct is None or net_insider_1y_pct >= 0", "weight": 0.5},
+    {"name": "consistent-sales",     "expr": "sales_growth_streak >= 5",  "weight": 1.0}
+  ]
+}

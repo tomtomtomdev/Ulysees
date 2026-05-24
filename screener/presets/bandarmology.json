@@ -1,0 +1,14 @@
+{
+  "id": "bandarmology",
+  "name": "Filbert — Bandarmology",
+  "description": "Smart-money accumulation: bandar value rising, sustained foreign net buying, increasing volume frequency.",
+  "rules": [
+    {"name": "bandar-accumulating",     "expr": "bandar_value > 0 and bandar_value > bandar_value_ma20", "weight": 2.0},
+    {"name": "accum-trend",             "expr": "bandar_accum_dist > 0",                                  "weight": 1.5},
+    {"name": "foreign-buy-1m",          "expr": "nf_flow_1m > 0",                                         "weight": 1.0},
+    {"name": "foreign-buy-streak",      "expr": "net_foreign_buy_streak >= 5",                            "weight": 1.0},
+    {"name": "freq-spike",              "expr": "bool(freq_spike) or (freq_analyzer is not None and freq_analyzer >= 1.5)", "weight": 1.0},
+    {"name": "above-50ma",              "expr": "price >= price_ma_50",                                   "weight": 0.5},
+    {"name": "liquidity-floor",         "expr": "value_ma_20 >= 5e9",                                     "weight": 0.5, "veto": true, "note": "Skip illiquid names"}
+  ]
+}

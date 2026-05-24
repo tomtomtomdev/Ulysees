@@ -1,0 +1,15 @@
+{
+  "id": "bandar-investment-style",
+  "name": "Filbert — Bandar Investment Style",
+  "description": "Long-horizon bandar accumulation + fundamental floor. Combines multi-month flow with profitability and balance-sheet safety.",
+  "rules": [
+    {"name": "bandar-6m",            "expr": "nf_flow_6m > 0",                "weight": 1.5},
+    {"name": "bandar-3m-positive",   "expr": "nf_flow_3m > 0",                "weight": 1.0},
+    {"name": "shareholders-rising",  "expr": "num_shareholders_pct_3m is None or num_shareholders_pct_3m <= 5", "weight": 0.5, "note": "Big retail influx is contrarian flag"},
+    {"name": "profitable",           "expr": "roe_ttm >= 10",                 "weight": 1.0},
+    {"name": "fcf-positive",         "expr": "fcf_ttm > 0",                   "weight": 1.0},
+    {"name": "manageable-debt",      "expr": "der < 1.5",                     "weight": 1.0},
+    {"name": "above-200ma",          "expr": "price >= price_ma_200",         "weight": 1.0, "note": "Long-term uptrend"},
+    {"name": "not-overheated",       "expr": "rsi_14 < 75",                   "weight": 0.5}
+  ]
+}

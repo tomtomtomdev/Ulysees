@@ -1,0 +1,13 @@
+{
+  "id": "special-situation",
+  "name": "Greenblatt — Special Situations",
+  "description": "Heuristic for post-event entities: depressed valuation, recent corporate-action context, asset backing.",
+  "rules": [
+    {"name": "below-tang-bv",      "expr": "p_tang_bv_quarter is not None and p_tang_bv_quarter <= 1.0", "weight": 1.5},
+    {"name": "asset-backing",      "expr": "tangible_book_value > 0 and total_debt_q < tangible_book_value", "weight": 1.0, "veto": true},
+    {"name": "improving-tape",     "expr": "ret_3m_pct is not None and ret_3m_pct >= 5",                  "weight": 1.0},
+    {"name": "insider-buying",     "expr": "net_insider_6m_pct is not None and net_insider_6m_pct >= 0", "weight": 1.0},
+    {"name": "liquidity-ok",       "expr": "value_ma_20 >= 2e9",                                          "weight": 0.5},
+    {"name": "not-broken",         "expr": "altman_z_modified is None or altman_z_modified >= 1.5",       "weight": 1.0}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "marks-cycle",
+  "name": "Howard Marks — Cycle Position",
+  "description": "Filter stocks at low end of their own 5Y valuation cycle (mean-reversion gate). Pairs well with quality presets.",
+  "rules": [
+    {"name": "pe-below-mean-5y",   "expr": "pe_ttm is not None and pe_ttm <= pe_mean_5y * 0.90 if has('pe_mean_5y') else False", "weight": 1.5},
+    {"name": "pbv-below-mean-5y",  "expr": "pbv is not None and pbv <= pbv_mean_5y * 0.90 if has('pbv_mean_5y') else False",     "weight": 1.5},
+    {"name": "ps-below-mean-5y",   "expr": "ps_ttm is not None and ps_ttm <= ps_mean_5y * 0.90 if has('ps_mean_5y') else False", "weight": 1.0},
+    {"name": "div-yield-elevated", "expr": "div_yield is not None and avg_div_yield_5y is not None and div_yield >= avg_div_yield_5y","weight": 1.0},
+    {"name": "still-profitable",   "expr": "roe_ttm >= 8",                "weight": 1.0, "veto": true, "note": "Cheap-and-broken is not the goal"}
+  ]
+}

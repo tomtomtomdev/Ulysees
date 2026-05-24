@@ -1,0 +1,13 @@
+{
+  "id": "klarman-deep-value",
+  "name": "Klarman — Margin of Safety",
+  "description": "Net-net and near-net-net territory: P/NCAV / P/NNWC discounts, asset-value floor, low leverage.",
+  "rules": [
+    {"name": "p-ncav-discount", "expr": "p_ncav is not None and p_ncav <= 1.0",  "weight": 2.0, "note": "Trading below NCAV"},
+    {"name": "p-nnwc-floor",    "expr": "p_nnwc is not None and p_nnwc <= 1.5",  "weight": 1.5},
+    {"name": "low-pb",          "expr": "pbv > 0 and pbv <= 1.0",                "weight": 1.0},
+    {"name": "no-distress",     "expr": "altman_z_modified is None or altman_z_modified >= 1.8", "weight": 1.0, "veto": true},
+    {"name": "insider-not-selling","expr": "net_insider_6m_pct is None or net_insider_6m_pct >= -1", "weight": 0.5},
+    {"name": "cash-survival",   "expr": "current_ratio >= 1.5",                  "weight": 1.0}
+  ]
+}

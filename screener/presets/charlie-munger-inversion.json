@@ -1,0 +1,13 @@
+{
+  "id": "charlie-munger-inversion",
+  "name": "Munger — Inversion (Failure-Mode Filter)",
+  "description": "Inversion: don't buy stocks that exhibit any of the classic failure modes. Veto-heavy.",
+  "rules": [
+    {"name": "no-low-z",         "expr": "altman_z_modified is None or altman_z_modified >= 1.8", "weight": 1.0, "veto": true},
+    {"name": "interest-covered", "expr": "interest_coverage is None or interest_coverage >= 3",   "weight": 1.0, "veto": true},
+    {"name": "no-margin-rot",    "expr": "npm_ttm >= npm_avg_5y * 0.5",                            "weight": 1.0, "veto": true},
+    {"name": "no-insider-flight","expr": "net_insider_1y_pct is None or net_insider_1y_pct >= -5","weight": 1.0, "veto": true},
+    {"name": "moat-proxy-roic",  "expr": "avg_roe_5y >= 12",                                       "weight": 1.5},
+    {"name": "moat-proxy-margin","expr": "opm_ttm >= 12",                                          "weight": 1.0}
+  ]
+}

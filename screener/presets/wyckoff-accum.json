@@ -1,0 +1,13 @@
+{
+  "id": "wyckoff-accum",
+  "name": "Wyckoff — Accumulation / Reaccumulation",
+  "description": "Daily-data proxy: stock basing near 52w low region with rising volume and turning up through 50MA.",
+  "rules": [
+    {"name": "near-52w-low",        "expr": "price <= low_52w * 1.20",            "weight": 1.5},
+    {"name": "off-the-floor",       "expr": "price >= low_52w * 1.05",            "weight": 1.0, "note": "Confirmed bounce"},
+    {"name": "rising-50ma",         "expr": "price_ma_50 >= price_ma_100",        "weight": 1.0},
+    {"name": "vol-expansion",       "expr": "volume_ma_20 >= 1.2 * volume_ma_50", "weight": 1.0},
+    {"name": "smart-money-flow",    "expr": "bandar_value_ma20 > 0",              "weight": 1.0},
+    {"name": "no-fresh-low",        "expr": "ret_1m_pct is None or ret_1m_pct >= -8", "weight": 1.0, "veto": true}
+  ]
+}

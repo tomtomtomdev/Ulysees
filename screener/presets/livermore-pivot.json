@@ -1,0 +1,13 @@
+{
+  "id": "livermore-pivot",
+  "name": "Livermore — Line of Least Resistance",
+  "description": "Reminiscences-style pivot-point breakout to fresh highs with confirming volume and RS leadership.",
+  "rules": [
+    {"name": "new-3m-high",        "expr": "price >= high_52w * 0.98",                              "weight": 1.5},
+    {"name": "above-50-and-200",   "expr": "price >= price_ma_50 and price_ma_50 >= price_ma_200",  "weight": 1.5},
+    {"name": "rs-leader",          "expr": "rs_rating is not None and rs_rating >= 80",             "weight": 1.5},
+    {"name": "rs-line-up",         "expr": "rs_line_6m is not None and rs_line_3m >= rs_line_6m",   "weight": 1.0},
+    {"name": "vol-confirm",        "expr": "volume >= 1.5 * volume_ma_50",                          "weight": 1.0},
+    {"name": "not-extended",       "expr": "price <= price_ma_50 * 1.15",                           "weight": 0.5, "note": "Stand aside if too far above 50MA"}
+  ]
+}

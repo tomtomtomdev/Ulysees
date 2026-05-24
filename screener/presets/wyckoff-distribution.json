@@ -1,0 +1,13 @@
+{
+  "id": "wyckoff-distribution",
+  "name": "Wyckoff — Distribution Warning",
+  "description": "Flag holdings showing distribution signs: near 52w high with deteriorating breadth/flow.",
+  "rules": [
+    {"name": "near-52w-high",       "expr": "price >= high_52w * 0.95",       "weight": 1.5},
+    {"name": "weakening-flow",      "expr": "nf_flow_1m < 0",                 "weight": 1.5},
+    {"name": "bandar-distributing", "expr": "bandar_accum_dist < 0",          "weight": 1.5},
+    {"name": "rsi-divergence",      "expr": "rsi_14 > 70",                    "weight": 1.0},
+    {"name": "insider-selling",     "expr": "net_insider_3m_pct is not None and net_insider_3m_pct < -2", "weight": 1.0},
+    {"name": "ma-flat-rolling",     "expr": "price_ma_20 <= price_ma_50",     "weight": 0.5}
+  ]
+}

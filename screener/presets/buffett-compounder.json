@@ -1,0 +1,15 @@
+{
+  "id": "buffett-compounder",
+  "name": "Buffett — Owner Earnings Compounder",
+  "description": "Durable ROE/ROIC, low leverage, owner-earnings yield above corporate bond, capital allocation through dividend record.",
+  "rules": [
+    {"name": "durable-roe",         "expr": "avg_roe_5y >= 15",                            "weight": 2.0},
+    {"name": "durable-roic",        "expr": "roic_ttm >= 15",                              "weight": 1.5},
+    {"name": "low-leverage",        "expr": "der < 0.5",                                   "weight": 1.0},
+    {"name": "fcf-yield-vs-bond",   "expr": "fcf_ttm / market_cap * 100 >= 6",             "weight": 1.5, "note": "FCF yield ≥ corp bond proxy"},
+    {"name": "operating-margin",    "expr": "opm_ttm >= 15",                               "weight": 1.0},
+    {"name": "margin-stability",    "expr": "npm_avg_5y >= 10",                            "weight": 1.0},
+    {"name": "dividend-discipline", "expr": "div_streak_annual >= 5 and payout_ratio < 80","weight": 1.0},
+    {"name": "no-negative-equity",  "expr": "common_equity > 0",                           "weight": 1.0, "veto": true}
+  ]
+}

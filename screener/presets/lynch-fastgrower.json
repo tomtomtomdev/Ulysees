@@ -1,0 +1,14 @@
+{
+  "id": "lynch-fastgrower",
+  "name": "Lynch — Fast Grower (PEG)",
+  "description": "Peter Lynch fast grower: PEG < 1, EPS growth 20–50%, manageable debt, reasonable size.",
+  "rules": [
+    {"name": "peg-attractive",     "expr": "peg > 0 and peg < 1",                                    "weight": 2.0},
+    {"name": "eps-growth-band",    "expr": "eps_annual_yoy_growth >= 20 and eps_annual_yoy_growth <= 50","weight": 1.5},
+    {"name": "consistent-growth",  "expr": "eps_growth_streak >= 3",                                 "weight": 1.0},
+    {"name": "sales-keep-up",      "expr": "rank_operating_profit_growth is not None and rank_operating_profit_growth <= 0.30","weight": 1.0},
+    {"name": "low-debt",           "expr": "der < 1.0",                                              "weight": 1.0},
+    {"name": "size-not-too-big",   "expr": "market_cap <= 50e12",                                    "weight": 0.5, "note": "Lynch: big companies move slowly"},
+    {"name": "not-too-stretched",  "expr": "pe_ttm <= 25",                                           "weight": 1.0}
+  ]
+}

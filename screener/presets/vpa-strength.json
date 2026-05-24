@@ -1,0 +1,13 @@
+{
+  "id": "vpa-strength",
+  "name": "Anna Coulling — VPA Strength",
+  "description": "Volume Price Analysis on daily bars: wide-spread up bar on heavy volume closing near high.",
+  "rules": [
+    {"name": "wide-spread",      "expr": "(high_price - low_price) / max(previous_price, 1) >= 0.03","weight": 1.0},
+    {"name": "up-bar",           "expr": "price > previous_price",                                   "weight": 1.0},
+    {"name": "close-near-high",  "expr": "(price - low_price) / max(high_price - low_price, 1) >= 0.7","weight": 1.5},
+    {"name": "heavy-volume",     "expr": "volume >= 1.5 * volume_ma_50",                             "weight": 1.5},
+    {"name": "value-confirm",    "expr": "value >= 1.5 * value_ma_50",                               "weight": 1.0},
+    {"name": "no-climax",        "expr": "volume <= 4 * volume_ma_50",                               "weight": 1.0, "note": "Avoid blow-off bars"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "canslim",
+  "name": "O'Neil — CAN SLIM",
+  "description": "Earnings + leadership + new high + RS — adapted to Stockbit's EPS Rating / RS Rating fields.",
+  "rules": [
+    {"name": "eps-rating-high",   "expr": "eps_rating is not None and eps_rating >= 80",  "weight": 1.5},
+    {"name": "rs-rating-high",    "expr": "rs_rating is not None and rs_rating >= 80",    "weight": 1.5},
+    {"name": "current-eps-growth","expr": "eps_q_yoy_growth >= 25",                       "weight": 1.0},
+    {"name": "annual-eps-growth", "expr": "eps_annual_yoy_growth >= 20",                  "weight": 1.0},
+    {"name": "near-new-high",     "expr": "price >= high_52w * 0.90",                     "weight": 1.0},
+    {"name": "vol-confirmation",  "expr": "volume_ma_5 >= 1.2 * volume_ma_50",            "weight": 0.5},
+    {"name": "leader-not-laggard","expr": "ret_3m_pct is not None and ret_3m_pct >= 0",   "weight": 0.5}
+  ]
+}

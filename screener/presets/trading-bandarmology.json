@@ -1,0 +1,14 @@
+{
+  "id": "trading-bandarmology",
+  "name": "Filbert — Trading Bandarmology",
+  "description": "Short-term setup: today's bandar shift + tape confirmation. Tight liquidity gate.",
+  "rules": [
+    {"name": "bandar-shift",        "expr": "bandar_value > previous_bandar_value",       "weight": 2.0},
+    {"name": "fresh-foreign-buy",   "expr": "net_foreign_bs > 0",                          "weight": 1.5},
+    {"name": "volume-spike",        "expr": "volume >= 1.5 * volume_ma_20",                "weight": 1.0},
+    {"name": "freq-spike",          "expr": "bool(freq_spike)",                            "weight": 1.0},
+    {"name": "close-near-high",     "expr": "(price - low_price) / max(high_price - low_price, 1) >= 0.7","weight": 1.0},
+    {"name": "rsi-room",            "expr": "rsi_14 < 70",                                 "weight": 0.5},
+    {"name": "liquidity-floor",     "expr": "value >= 10e9",                               "weight": 0.5, "veto": true}
+  ]
+}

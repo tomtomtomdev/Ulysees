@@ -1,0 +1,12 @@
+{
+  "id": "piotroski-f",
+  "name": "Piotroski F-Score (Value)",
+  "description": "Use Stockbit's pre-computed F-Score on cheap P/B names — finds quality-improving deep-value.",
+  "rules": [
+    {"name": "f-score-strong",  "expr": "piotroski_f >= 7",       "weight": 2.0},
+    {"name": "low-pb",          "expr": "pbv > 0 and pbv <= 1.5", "weight": 1.5},
+    {"name": "low-pe",          "expr": "pe_ttm > 0 and pe_ttm <= 12", "weight": 1.0},
+    {"name": "altman-safe",     "expr": "altman_z_modified is None or altman_z_modified >= 1.8", "weight": 1.0, "veto": true},
+    {"name": "positive-ocf",    "expr": "cfo_ttm > 0",            "weight": 1.0}
+  ]
+}
