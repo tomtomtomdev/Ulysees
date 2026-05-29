@@ -1,0 +1,78 @@
+{
+  "id": "value-master",
+  "name": "Value Master — Consolidated Value-Investing Screener",
+  "description": "Unified value screen merging Graham (Intelligent Investor), Klarman (Margin of Safety), Greenblatt (Magic Formula), Buffett (Owner-Earnings Compounder), Piotroski F-Score, Munger Inversion, Dividend Aristocrat, and Marks (Cycle Position). Weighted score with hard vetoes on distress/leverage. Logic is weighted-OR for normal rules + hard-AND for veto rules. Only exact-duplicate rules (same expr) were removed; weaker thresholds on the same metric are kept as separate gates because passing both tightens conviction.",
+  "sources": [
+    "intelligent-investor",
+    "klarman-deep-value",
+    "magic-formula",
+    "buffett-compounder",
+    "piotroski-f",
+    "charlie-munger-inversion",
+    "dividend-aristocrat",
+    "marks-cycle"
+  ],
+  "dedup_notes": [
+    "Only exact-duplicate exprs were dropped:",
+    "  altman_z_modified >= 1.8 (veto) — appeared in Klarman, Piotroski, Munger → kept once as 'altman-safe'",
+    "  div_streak_annual >= 10 — appeared in Graham and Dividend Aristocrat → kept once as 'dividend-record'",
+    "  div_yield >= avg_div_yield_5y — appeared in Dividend Aristocrat and Marks → kept once as 'yield-elevated-vs-5y'",
+    "Weaker thresholds on the same metric are KEPT as independent rules (per user request): size 1T + 5T, CR 1.5 + 2, DER 0.5 + 1.5, avg_roe_5y 12 + 15, opm 12 + 15, dividend-discipline kept alongside dividend-record."
+  ],
+  "rules": [
+    {"name": "moderate-pe",            "expr": "pe_ttm > 0 and pe_ttm <= 15",                                                          "weight": 1.0, "group": "valuation-absolute"},
+    {"name": "low-pe",                 "expr": "pe_ttm > 0 and pe_ttm <= 12",                                                          "weight": 1.0, "group": "valuation-absolute", "note": "Piotroski tighter PE gate"},
+    {"name": "moderate-pb",            "expr": "pbv > 0 and pe_ttm * pbv <= 22.5",                                                     "weight": 1.0, "group": "valuation-absolute", "note": "Graham combined valuation"},
+    {"name": "low-pb-piotroski",       "expr": "pbv > 0 and pbv <= 1.5",                                                               "weight": 1.5, "group": "valuation-absolute"},
+    {"name": "deep-low-pb-klarman",    "expr": "pbv > 0 and pbv <= 1.0",                                                               "weight": 1.0, "group": "valuation-absolute"},
+    {"name": "p-ncav-discount",        "expr": "p_ncav is not None and p_ncav <= 1.0",                                                 "weight": 2.0, "group": "valuation-absolute", "note": "Net-net territory"},
+    {"name": "p-nnwc-floor",           "expr": "p_nnwc is not None and p_nnwc <= 1.5",                                                 "weight": 1.5, "group": "valuation-absolute"},
+    {"name": "graham-margin",          "expr": "graham_multiplier is not None and price <= graham_multiplier * 0.67",                  "weight": 1.5, "group": "valuation-absolute", "note": ">=33% MoS to Graham number"},
+    {"name": "high-earnings-yield",    "expr": "earnings_yield_ttm >= 10",                                                             "weight": 1.0, "group": "valuation-absolute"},
+    {"name": "top-decile-magic",       "expr": "rank_magic_formula is not None and rank_magic_formula <= 0.10",                        "weight": 2.0, "group": "valuation-absolute", "note": "Greenblatt combined rank top 10%"},
+    {"name": "fcf-yield-vs-bond",      "expr": "fcf_ttm / market_cap * 100 >= 6",                                                      "weight": 1.5, "group": "valuation-absolute", "note": "Buffett: FCF yield above corp bond proxy"},
+
+    {"name": "pe-below-mean-5y",       "expr": "pe_ttm is not None and pe_ttm <= pe_mean_5y * 0.90 if has('pe_mean_5y') else False",   "weight": 1.5, "group": "valuation-relative"},
+    {"name": "pbv-below-mean-5y",      "expr": "pbv is not None and pbv <= pbv_mean_5y * 0.90 if has('pbv_mean_5y') else False",       "weight": 1.5, "group": "valuation-relative"},
+    {"name": "ps-below-mean-5y",       "expr": "ps_ttm is not None and ps_ttm <= ps_mean_5y * 0.90 if has('ps_mean_5y') else False",   "weight": 1.0, "group": "valuation-relative"},
+    {"name": "yield-elevated-vs-5y",   "expr": "div_yield is not None and avg_div_yield_5y is not None and div_yield >= avg_div_yield_5y", "weight": 1.0, "group": "valuation-relative"},
+
+    {"name": "durable-roe",            "expr": "avg_roe_5y >= 15",                                                                     "weight": 2.0, "group": "quality-returns"},
+    {"name": "moat-proxy-roe",         "expr": "avg_roe_5y >= 12",                                                                     "weight": 1.5, "group": "quality-returns", "note": "Munger moat-proxy lower bar"},
+    {"name": "durable-roic",           "expr": "roic_ttm >= 15",                                                                       "weight": 1.5, "group": "quality-returns"},
+    {"name": "high-roc-greenblatt",    "expr": "roc_greenblatt >= 20",                                                                 "weight": 1.0, "group": "quality-returns"},
+
+    {"name": "operating-margin",       "expr": "opm_ttm >= 15",                                                                        "weight": 1.0, "group": "quality-margins"},
+    {"name": "moat-proxy-margin",      "expr": "opm_ttm >= 12",                                                                        "weight": 1.0, "group": "quality-margins", "note": "Munger moat-proxy lower bar"},
+    {"name": "margin-stability-5y",    "expr": "npm_avg_5y >= 10",                                                                     "weight": 1.0, "group": "quality-margins"},
+
+    {"name": "earnings-stability",     "expr": "eps_growth_streak_annual >= 10 or net_income_growth_streak_ann >= 10",                 "weight": 1.0, "group": "quality-growth"},
+    {"name": "earnings-growth-cagr",   "expr": "eps_3y_cagr >= 3",                                                                     "weight": 1.0, "group": "quality-growth"},
+    {"name": "f-score-strong",         "expr": "piotroski_f >= 7",                                                                     "weight": 2.0, "group": "quality-growth"},
+    {"name": "positive-ocf",           "expr": "cfo_ttm > 0",                                                                          "weight": 1.0, "group": "quality-growth"},
+
+    {"name": "strong-current-ratio",   "expr": "current_ratio >= 2",                                                                   "weight": 1.0, "group": "balance-sheet"},
+    {"name": "cash-survival",          "expr": "current_ratio >= 1.5",                                                                 "weight": 1.0, "group": "balance-sheet", "note": "Klarman lower CR bar"},
+    {"name": "low-leverage",           "expr": "der < 0.5",                                                                            "weight": 1.0, "group": "balance-sheet", "note": "Buffett fortress leverage"},
+    {"name": "manageable-leverage",    "expr": "der < 1.5",                                                                            "weight": 0.5, "group": "balance-sheet", "note": "Dividend Aristocrat lower bar"},
+    {"name": "adequate-size",          "expr": "market_cap >= 5e12",                                                                   "weight": 1.0, "group": "balance-sheet", "note": "IDR 5T cap floor (Graham defensive)"},
+    {"name": "size-floor",             "expr": "market_cap >= 1e12",                                                                   "weight": 0.5, "group": "balance-sheet", "note": "Magic Formula lower size bar"},
+
+    {"name": "dividend-record",        "expr": "div_streak_annual >= 10",                                                              "weight": 2.0, "group": "dividends"},
+    {"name": "dividend-discipline",    "expr": "div_streak_annual >= 5 and payout_ratio < 80",                                         "weight": 1.0, "group": "dividends", "note": "Buffett combined dividend check"},
+    {"name": "yield-attractive",       "expr": "div_yield >= 4",                                                                       "weight": 1.5, "group": "dividends"},
+    {"name": "payout-sustainable",     "expr": "payout_ratio is None or payout_ratio <= 70",                                           "weight": 1.0, "group": "dividends"},
+
+    {"name": "insider-not-selling",    "expr": "net_insider_6m_pct is None or net_insider_6m_pct >= -1",                               "weight": 0.5, "group": "governance"},
+
+    {"name": "altman-safe",            "expr": "altman_z_modified is None or altman_z_modified >= 1.8",                                "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "no-distress-graham",     "expr": "der < 2 and interest_coverage > 1.5",                                                  "weight": 1.0, "group": "veto-gates", "veto": true, "note": "Graham's combined distress check"},
+    {"name": "interest-covered",       "expr": "interest_coverage is None or interest_coverage >= 3",                                  "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "no-margin-rot",          "expr": "npm_ttm >= npm_avg_5y * 0.5",                                                          "weight": 1.0, "group": "veto-gates", "veto": true, "note": "Munger inversion: avoid collapsing margins"},
+    {"name": "no-insider-flight",      "expr": "net_insider_1y_pct is None or net_insider_1y_pct >= -5",                               "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "no-negative-equity",     "expr": "common_equity > 0",                                                                    "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "positive-fcf",           "expr": "fcf_ttm > 0",                                                                          "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "fcf-covers-dividend",    "expr": "fcf_ttm > div_ttm * current_share_outstanding",                                        "weight": 1.0, "group": "veto-gates", "veto": true},
+    {"name": "still-profitable",       "expr": "roe_ttm >= 8",                                                                         "weight": 1.0, "group": "veto-gates", "veto": true, "note": "Marks: cheap-and-broken is not the goal"}
+  ]
+}

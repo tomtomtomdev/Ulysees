@@ -1,0 +1,42 @@
+{
+  "id": "bandar-master",
+  "name": "Bandar Master — Consolidated Smart-Money Screener",
+  "description": "Unified bandar screen merging Filbert Bandarmology, Trading Bandarmology, Bandar Investment Style, and Composite Value+Bandar. Weighted score with hard vetoes on liquidity. Logic is weighted-OR for normal rules + hard-AND for veto rules. Only exact-duplicate exprs were removed; weaker thresholds on the same metric are kept as independent gates so passing both tightens conviction.",
+  "sources": [
+    "bandarmology",
+    "trading-bandarmology",
+    "bandar-investment-style",
+    "composite-value-bandar"
+  ],
+  "rules": [
+    {"name": "bandar-accumulating",     "expr": "bandar_value > 0 and bandar_value > bandar_value_ma20",                              "weight": 2.0, "group": "smart-money-flow", "note": "Core: positive bandar value above its 20d MA"},
+    {"name": "bandar-above-ma20",       "expr": "bandar_value > bandar_value_ma20",                                                    "weight": 1.5, "group": "smart-money-flow", "note": "Composite version: above MA without requiring positive value"},
+    {"name": "bandar-shift-today",      "expr": "bandar_value > previous_bandar_value",                                                "weight": 2.0, "group": "smart-money-flow", "note": "Fresh intraday bandar uptick"},
+    {"name": "accum-dist-positive",     "expr": "bandar_accum_dist > 0",                                                               "weight": 1.5, "group": "smart-money-flow"},
+    {"name": "foreign-flow-6m",         "expr": "nf_flow_6m > 0",                                                                      "weight": 1.5, "group": "smart-money-flow", "note": "Long-horizon foreign accumulation"},
+    {"name": "foreign-flow-3m",         "expr": "nf_flow_3m > 0",                                                                      "weight": 1.0, "group": "smart-money-flow"},
+    {"name": "foreign-flow-1m",         "expr": "nf_flow_1m > 0",                                                                      "weight": 1.0, "group": "smart-money-flow"},
+    {"name": "foreign-buy-streak",      "expr": "net_foreign_buy_streak >= 5",                                                         "weight": 1.0, "group": "smart-money-flow"},
+    {"name": "fresh-foreign-buy",       "expr": "net_foreign_bs > 0",                                                                  "weight": 1.5, "group": "smart-money-flow", "note": "Today's net foreign B/S"},
+
+    {"name": "freq-spike",              "expr": "bool(freq_spike) or (freq_analyzer is not None and freq_analyzer >= 1.5)",            "weight": 1.0, "group": "tape-activity"},
+    {"name": "volume-spike",            "expr": "volume >= 1.5 * volume_ma_20",                                                        "weight": 1.0, "group": "tape-activity"},
+    {"name": "close-near-high",         "expr": "(price - low_price) / max(high_price - low_price, 1) >= 0.7",                         "weight": 1.0, "group": "tape-activity", "note": "Strong close in upper 30% of range"},
+
+    {"name": "above-50ma",              "expr": "price >= price_ma_50",                                                                "weight": 0.5, "group": "trend"},
+    {"name": "above-200ma",             "expr": "price >= price_ma_200",                                                               "weight": 1.0, "group": "trend",         "note": "Long-term uptrend confirmation"},
+
+    {"name": "earnings-yield",          "expr": "earnings_yield_ttm >= 8",                                                             "weight": 1.0, "group": "fundamentals"},
+    {"name": "pbv-below-2",             "expr": "pbv > 0 and pbv <= 2",                                                                "weight": 1.0, "group": "fundamentals"},
+    {"name": "roe-quality",             "expr": "roe_ttm >= 12",                                                                       "weight": 1.0, "group": "fundamentals"},
+    {"name": "fcf-positive",            "expr": "fcf_ttm > 0",                                                                         "weight": 1.0, "group": "fundamentals"},
+    {"name": "manageable-debt",         "expr": "der < 1.5",                                                                           "weight": 1.0, "group": "fundamentals"},
+
+    {"name": "rsi-room",                "expr": "rsi_14 < 70",                                                                         "weight": 0.5, "group": "risk-gates", "note": "Trading bandarmology tighter RSI ceiling"},
+    {"name": "not-overheated",          "expr": "rsi_14 < 75",                                                                         "weight": 0.5, "group": "risk-gates", "note": "Bandar investment style looser RSI ceiling"},
+    {"name": "shareholders-stable",     "expr": "num_shareholders_pct_3m is None or num_shareholders_pct_3m <= 5",                     "weight": 0.5, "group": "risk-gates",  "note": "Big retail influx is contrarian"},
+
+    {"name": "liquidity-floor",         "expr": "value_ma_20 >= 5e9",                                                                  "weight": 0.5, "group": "veto-gates",  "veto": true, "note": "Skip illiquid names"},
+    {"name": "intraday-liquidity",      "expr": "value >= 10e9",                                                                       "weight": 0.5, "group": "veto-gates",  "veto": true, "note": "Today's traded value floor for tradable setups"}
+  ]
+}
